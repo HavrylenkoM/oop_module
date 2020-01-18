@@ -5,7 +5,7 @@ import settings
 
 
 
-class Player(BaseException):
+class Player():
     """ Main class for game mechanics"""
 
 
