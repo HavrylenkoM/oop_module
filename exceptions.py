@@ -1,17 +1,13 @@
-import game
+"""Module for implementing exceptions """
 
 
 class GameOver(Exception):
-    """Game saving mechanics"""
-
+    """In my case that is just useless that do nothing."""
 
     def __init__(self):
-        self.save_result()
-
-    def save_result(self):
-        with open('scores.txt', 'a') as file:
-            return file.write(f"{game.player.name} - {game.player.score} \n")
+        super().__init__()
 
 
 class EnemyDown(Exception):
+    """One more almost useless exception."""
     pass

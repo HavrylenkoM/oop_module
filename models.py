@@ -1,10 +1,11 @@
+"""Module that contains all the nessecary mechanics of the application"""
 import exceptions
 import random
 import settings
 
 
 
-class Player:
+class Player(BaseException):
     """ Main class for game mechanics"""
 
 
@@ -27,7 +28,7 @@ class Player:
             return -1
 
     def attack(self, enemy):
-        """Attack mechanics for player"""
+        """Attack mechanics for player and computer"""
         print(self.name + ' attack now:')
         while True:
             print('Choose your hero: 1 for Warrior, 2 for Wizard, 3 for Rogue')
@@ -52,7 +53,7 @@ class Player:
             print('You have ', self.lives, 'lives left')
 
     def defense(self, enemy):
-        """Defense mechanics for player"""
+        """Defense mechanics for player and computer"""
         print('Choose your hero for defence')
         while(True):
             print('Enter 1 for Warrior, 2 for Wizard, 3 for Rogue')
@@ -78,7 +79,7 @@ class Player:
     def decrease_lives(self):
         self.lives -= 1
         if (self.lives == 0):
-            raise exceptions.GameOver()
+            raise exceptions.GameOver
 
 
 class Enemy:

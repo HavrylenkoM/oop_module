@@ -1,37 +1,50 @@
-import exceptions
-import models
-
+""" Main module to start application"""
+from exceptions import EnemyDown
+from exceptions import GameOver
+from models import Enemy
+from models import Player
 
 
 def play():
-    """Main game function, with name inputing and level upgrading"""
-    print("Enter your name")
-    name = input()
-    print("Enter start")
-    start = input()
-    if start == 'start':
-        pass
+    """ Method to start the game"""
+    name = input("Enter your name : ")
     global player
-    player = models.Player(name)
+    player = Player(name)
+    start = input("Enter 'start' when you are ready for battle: ")
+    if start == 'start':
+        print('Get ready')
+    else:
+        play()
     level = 1
-    enemy = models.Enemy(level)
-  
+    enemy = Enemy(1)
     while True:
         try:
             player.attack(enemy)
             player.defense(enemy)
-        except exceptions.EnemyDown:
+        except EnemyDown:
             level += 1
             player.score += 5
-            print("Enemy down, meet new enemy with level ", level)
-            enemy = models.Enemy(level)
+            enemy = Enemy(level)
 
 
-#if __name__ == "__main__":
-try:
-    play()
-except exceptions.GameOver:
-    print("Game over:(")
-    print('Your score is ', player.score)
-finally:
-    print("Good bye!")
+def main():
+    """ Main method, including savegame mechanics and latest scores """
+    try:
+        play()
+    except GameOver:
+        print("Game Over")
+        print(f'Your result is {player.score}')
+        with open('scores.txt', 'a') as file:
+            file.write(player.name + ' - ' + str(player.score) + '\n')
+    except KeyboardInterrupt:
+        pass
+    finally:
+        scores = input("If you want to check latest scores print 'scores': ")
+        if scores == 'scores':
+            with open('scores.txt', 'r') as file:
+                line = file.read()
+                print(line)
+
+
+if __name__ == "__main__":
+    main()

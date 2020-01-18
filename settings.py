@@ -1,3 +1,4 @@
+"""Module that contains all necessary constants"""
 LIVES = 3
 
 WARRIOR = 1
